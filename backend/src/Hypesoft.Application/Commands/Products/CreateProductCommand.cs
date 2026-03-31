@@ -1,9 +1,12 @@
+namespace Hypesoft.Application;
+
+using Hypesoft.Hypesoft.Application.Commands.Products;
 using MediatR;
 
 public record CreateProductCommand(
-    string Nome,
-    string Descricao,
-    decimal Preco,
-    Guid CategoryId,
-    int QuantidadeEstoque
-) : IRequest<Guid>;
+    string Name,
+    string Description,
+    decimal Price,
+    string CategoryId,
+    int StockQuantity
+) : IRequest<string>;

@@ -1,16 +1,28 @@
+namespace Hypesoft.Application.Handlers.Products;
+
+using Hypesoft.Domain.Repositories;
 using MediatR;
 
-public class CreateProductHandler : IRequestHandler<CreateProductCommand, Guid>
+public class CreateProductHandler : IRequestHandler<CreateProductCommand, string>
 {
-    public async Task<Guid> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    private readonly IProductRepository _repository;
+
+    public CreateProductHandler(IProductRepository repository)
     {
-        var product = new Product(
-            request.Nome,
-            request.Descricao,
-            request.Preco,
+        _repository = repository;
+    }
+
+    public async Task<string> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    {
+        var product = Product.Create(
+            request.Name,
+            request.Description,
+            request.Price,
             request.CategoryId,
-            request.QuantidadeEstoque
+            request.StockQuantity
         );
+
+        await _repository.AddAsync(product, cancellationToken);
 
         return product.Id;
     }
