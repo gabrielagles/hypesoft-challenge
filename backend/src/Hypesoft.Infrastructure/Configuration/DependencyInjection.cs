@@ -1,3 +1,6 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+
 namespace Hypesoft.Infrastructure.Configuration;
 
 public static class DependencyInjection
