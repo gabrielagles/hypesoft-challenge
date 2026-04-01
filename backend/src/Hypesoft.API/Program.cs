@@ -1,6 +1,7 @@
 using Hypesoft.Application.Commands.Products;
 using Hypesoft.Application.Commands.Categories;
 using Hypesoft.Application.Queries;
+using Hypesoft.Application.Queries.Products;
 using Hypesoft.Infrastructure.Configuration;
 using Hypesoft.API.Middlewares;
 using Microsoft.OpenApi.Models;

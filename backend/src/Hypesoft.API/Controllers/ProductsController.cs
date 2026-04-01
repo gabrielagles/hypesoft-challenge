@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using MediatR;
 using Hypesoft.Application.Commands.Products;
 using Hypesoft.Application.Queries;
+using Hypesoft.Application.Queries.Products;
 using Hypesoft.Application.DTOs;
 
 namespace Hypesoft.API.Controllers;
