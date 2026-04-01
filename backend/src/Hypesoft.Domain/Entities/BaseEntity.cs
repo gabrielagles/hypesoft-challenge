@@ -1,9 +1,8 @@
+namespace Hypesoft.Domain.Entities;
+
 public abstract class BaseEntity
 {
-    public Guid Id { get; protected set; }
-
-    protected BaseEntity()
-    {
-        Id = Guid.NewGuid();
-    }
+    public string Id { get; protected set; } = Guid.NewGuid().ToString();
+    public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; protected set; } = DateTime.UtcNow;
 }
