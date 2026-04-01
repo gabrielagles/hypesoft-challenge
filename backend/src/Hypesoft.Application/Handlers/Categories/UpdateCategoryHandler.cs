@@ -1,5 +1,6 @@
 using Hypesoft.Application.Commands.Categories;
 using Hypesoft.Application.DTOs;
+using Hypesoft.Domain.Entities;
 using Hypesoft.Domain.Repositories;
 using MediatR;
 

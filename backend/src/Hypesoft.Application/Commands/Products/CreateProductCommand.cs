@@ -1,7 +1,7 @@
-namespace Hypesoft.Application;
+namespace Hypesoft.Application.Commands.Products;
 
-using Hypesoft.Hypesoft.Application.Commands.Products;
 using MediatR;
+using Hypesoft.Application.DTOs;
 
 public record CreateProductCommand(
     string Name,
@@ -9,4 +9,4 @@ public record CreateProductCommand(
     decimal Price,
     string CategoryId,
     int StockQuantity
-) : IRequest<string>;
+) : IRequest<ProductDto>;

@@ -1,19 +1,28 @@
 namespace Hypesoft.Application.Handlers.Products;
 
+using Hypesoft.Domain.Entities;
 using Hypesoft.Domain.Repositories;
 using MediatR;
+using Hypesoft.Application.Commands.Products;
+using Hypesoft.Application.DTOs;
 
-public class CreateProductHandler : IRequestHandler<CreateProductCommand, string>
+public class CreateProductHandler : IRequestHandler<CreateProductCommand, ProductDto>
 {
-    private readonly IProductRepository _repository;
+    private readonly IProductRepository _productRepository;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public CreateProductHandler(IProductRepository repository)
+    public CreateProductHandler(IProductRepository productRepository, ICategoryRepository categoryRepository)
     {
-        _repository = repository;
+        _productRepository = productRepository;
+        _categoryRepository = categoryRepository;
     }
 
-    public async Task<string> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
+        var categoryExists = await _categoryRepository.ExistsAsync(request.CategoryId, cancellationToken);
+        if (!categoryExists)
+            throw new ArgumentException("Categoria não encontrada");
+
         var product = Product.Create(
             request.Name,
             request.Description,
@@ -22,8 +31,19 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, string
             request.StockQuantity
         );
 
-        await _repository.AddAsync(product, cancellationToken);
+        await _productRepository.AddAsync(product, cancellationToken);
 
-        return product.Id;
+        return new ProductDto
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            CategoryId = product.CategoryId,
+            StockQuantity = product.StockQuantity,
+            IsLowStock = product.IsLowStock,
+            CreatedAt = product.CreatedAt,
+            UpdatedAt = product.UpdatedAt
+        };
     }
 }

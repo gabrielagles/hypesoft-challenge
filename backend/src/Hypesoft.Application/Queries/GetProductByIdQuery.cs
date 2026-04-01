@@ -3,4 +3,4 @@ namespace Hypesoft.Application.Queries.Products;
 using MediatR;
 using Hypesoft.Application.DTOs;
 
-public record GetLowStockQuery : IRequest<IEnumerable<ProductDto>>;
+public record GetProductByIdQuery(string Id) : IRequest<ProductDto?>;
