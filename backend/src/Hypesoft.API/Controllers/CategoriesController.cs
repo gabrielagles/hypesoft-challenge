@@ -5,6 +5,7 @@ using Hypesoft.Application.Commands.Categories;
 using Hypesoft.Application.Queries;
 using Hypesoft.Application.Queries.Categories;
 using Hypesoft.Application.DTOs;
+using Hypesoft.Application.Handlers.Categories;
 
 namespace Hypesoft.API.Controllers;
 
@@ -13,10 +14,20 @@ namespace Hypesoft.API.Controllers;
 public class CategoriesController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly CreateCategoryHandler _createHandler;
+    private readonly UpdateCategoryHandler _updateHandler;
+    private readonly DeleteCategoryHandler _deleteHandler;
 
-    public CategoriesController(IMediator mediator)
+    public CategoriesController(
+        IMediator mediator,
+        CreateCategoryHandler createHandler,
+        UpdateCategoryHandler updateHandler,
+        DeleteCategoryHandler deleteHandler)
     {
         _mediator = mediator;
+        _createHandler = createHandler;
+        _updateHandler = updateHandler;
+        _deleteHandler = deleteHandler;
     }
 
     [HttpGet]
@@ -36,19 +47,20 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<CategoryDto>> Create([FromBody] CreateCategoryCommand command, CancellationToken ct)
+    public async Task<ActionResult<CategoryDto>> Create([FromBody] CategoryCreateUpdateDto dto, CancellationToken ct)
     {
-        var result = await _mediator.Send(command, ct);
+        var command = new CreateCategoryCommand(dto.Name, dto.Description ?? "");
+        var result = await _createHandler.Handle(command, ct);
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<CategoryDto>> Update(string id, [FromBody] UpdateCategoryCommand command, CancellationToken ct)
+    public async Task<ActionResult<CategoryDto>> Update(string id, [FromBody] CategoryCreateUpdateDto dto, CancellationToken ct)
     {
-        if (id != command.Id) return BadRequest();
         try
         {
-            return Ok(await _mediator.Send(command, ct));
+            var command = new UpdateCategoryCommand(id, dto.Name, dto.Description ?? "");
+            return Ok(await _updateHandler.Handle(command, ct));
         }
         catch (KeyNotFoundException)
         {
@@ -61,7 +73,7 @@ public class CategoriesController : ControllerBase
     {
         try
         {
-            await _mediator.Send(new DeleteCategoryCommand(id), ct);
+            await _deleteHandler.Handle(new DeleteCategoryCommand(id), ct);
             return NoContent();
         }
         catch (KeyNotFoundException)
@@ -69,4 +81,10 @@ public class CategoriesController : ControllerBase
             return NotFound();
         }
     }
+}
+
+public class CategoryCreateUpdateDto
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
 }
