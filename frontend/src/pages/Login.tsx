@@ -124,23 +124,9 @@ export function Login() {
             </button>
           </form>
 
-          <div className="mt-8 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-            <p className="text-sm text-slate-400 font-medium mb-3 text-center">Usuários de teste:</p>
-            <div className="grid grid-cols-3 gap-2 text-center">
-              <div className="p-2 bg-white/5 rounded-lg">
-                <p className="text-xs text-slate-500">Admin</p>
-                <p className="text-sm text-white font-medium">admin / admin123</p>
-              </div>
-              <div className="p-2 bg-white/5 rounded-lg">
-                <p className="text-xs text-slate-500">Manager</p>
-                <p className="text-sm text-white font-medium">manager / manager123</p>
-              </div>
-              <div className="p-2 bg-white/5 rounded-lg">
-                <p className="text-xs text-slate-500">User</p>
-                <p className="text-sm text-white font-medium">user / user123</p>
-              </div>
-            </div>
-          </div>
+          <p className="text-center text-slate-500 text-sm mt-6">
+            Credenciais: admin/admin123 | manager/manager123 | user/user123
+          </p>
         </div>
       </div>
     </div>

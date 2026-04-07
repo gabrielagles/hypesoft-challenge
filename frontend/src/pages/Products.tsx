@@ -62,9 +62,9 @@ export function Products() {
     defaultValues: {
       name: '',
       description: '',
-      price: 0,
+      price: '',
       categoryId: '',
-      stockQuantity: 0,
+      stockQuantity: '',
     },
   })
 
@@ -74,18 +74,18 @@ export function Products() {
       reset({
         name: product.name,
         description: product.description || '',
-        price: product.price,
+        price: product.price.toString(),
         categoryId: product.categoryId,
-        stockQuantity: product.stockQuantity,
+        stockQuantity: product.stockQuantity.toString(),
       })
     } else {
       setEditingProduct(null)
       reset({
         name: '',
         description: '',
-        price: 0,
+        price: '',
         categoryId: '',
-        stockQuantity: 0,
+        stockQuantity: '',
       })
     }
     setIsModalOpen(true)
@@ -99,8 +99,11 @@ export function Products() {
 
   const onSubmit = (data: ProductFormData) => {
     const payload = {
-      ...data,
-      description: data.description || null,
+      name: data.name,
+      description: data.description?.trim() || null,
+      price: parseFloat(data.price),
+      categoryId: data.categoryId,
+      stockQuantity: parseInt(data.stockQuantity),
     }
 
     if (editingProduct) {
@@ -309,7 +312,7 @@ export function Products() {
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Preço *</label>
                   <input 
                     type="number" 
-                    {...register('price', { valueAsNumber: true })}
+                    {...register('price')}
                     step="0.01"
                     min="0"
                     className={`w-full px-4 py-3 bg-slate-50 border rounded-xl focus:ring-2 focus:border-primary-500 outline-none transition ${
@@ -328,7 +331,7 @@ export function Products() {
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Estoque *</label>
                   <input 
                     type="number" 
-                    {...register('stockQuantity', { valueAsNumber: true })}
+                    {...register('stockQuantity')}
                     min="0"
                     className={`w-full px-4 py-3 bg-slate-50 border rounded-xl focus:ring-2 focus:border-primary-500 outline-none transition ${
                       errors.stockQuantity ? 'border-red-300 focus:ring-red-500' : 'border-slate-200 focus:ring-primary-500'

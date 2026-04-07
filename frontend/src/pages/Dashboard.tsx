@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { dashboardApi } from '../services/api'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js'
 import { Pie, Bar } from 'react-chartjs-2'
-import { Package, DollarSign, AlertTriangle, FolderTree, TrendingUp, PackageX, Boxes, Percent } from 'lucide-react'
+import { Package, DollarSign, AlertTriangle, FolderTree, TrendingUp, Boxes, Percent } from 'lucide-react'
 import type { DashboardData } from '../types'
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement)
@@ -61,7 +61,6 @@ export function Dashboard() {
 
   const hasLowStock = data?.lowStockProducts && data.lowStockProducts.length > 0
   const totalStockUnits = data?.totalStockUnits || 0
-  const zeroStock = data?.lowStockProducts?.filter((p: any) => p.stockQuantity === 0).length || 0
   const avgPrice = data?.totalProducts && data.totalProducts > 0 ? (data.totalStockValue / data.totalProducts) : 0
   const avgStock = data?.totalProducts && data.totalProducts > 0 && totalStockUnits > 0 ? Math.round(totalStockUnits / data.totalProducts) : 0
 
@@ -127,11 +126,13 @@ export function Dashboard() {
 
         <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
           <div className="flex items-center gap-2 mb-3">
-            <PackageX className="text-red-500" size={18} />
-            <h3 className="text-sm font-semibold text-slate-700">Sem Estoque</h3>
+            <TrendingUp className="text-purple-500" size={18} />
+            <h3 className="text-sm font-semibold text-slate-700">Preço Médio</h3>
           </div>
-          <p className="text-2xl font-bold text-red-600">{zeroStock}</p>
-          <p className="text-xs text-slate-500 mt-1">produtos zerados</p>
+          <p className="text-2xl font-bold text-slate-900">
+            R$ {avgPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">por produto</p>
         </div>
       </div>
 
