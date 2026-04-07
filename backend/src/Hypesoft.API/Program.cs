@@ -5,6 +5,7 @@ using Hypesoft.Application.Queries.Products;
 using Hypesoft.Infrastructure.Configuration;
 using Hypesoft.API.Middlewares;
 using Microsoft.OpenApi.Models;
+using AspNetCoreRateLimit;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,43 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddMemoryCache();
+builder.Services.Configure<IpRateLimitOptions>(options =>
+{
+    options.EnableEndpointRateLimiting = true;
+    options.StackBlockedRequests = false;
+    options.HttpStatusCode = 429;
+    options.GeneralRules = new List<RateLimitRule>
+    {
+        new RateLimitRule
+        {
+            Endpoint = "*:/api/*",
+            Period = "1m",
+            Limit = 100,
+        },
+        new RateLimitRule
+        {
+            Endpoint = "POST:/api/products",
+            Period = "1m",
+            Limit = 30,
+        },
+        new RateLimitRule
+        {
+            Endpoint = "POST:/api/categories",
+            Period = "1m",
+            Limit = 30,
+        },
+        new RateLimitRule
+        {
+            Endpoint = "*",
+            Period = "1s",
+            Limit = 30,
+        },
+    };
+});
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+builder.Services.AddInMemoryRateLimiting();
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
@@ -54,6 +92,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors("AllowAll");
+app.UseIpRateLimiting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
