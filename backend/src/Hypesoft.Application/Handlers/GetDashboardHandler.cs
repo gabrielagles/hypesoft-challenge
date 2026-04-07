@@ -36,6 +36,7 @@ public class GetDashboardHandler : IRequestHandler<GetDashboardQuery, DashboardD
         {
             TotalProducts = products.Count,
             TotalStockValue = products.Sum(p => p.Price * p.StockQuantity),
+            TotalStockUnits = products.Sum(p => p.StockQuantity),
             LowStockCount = lowStock.Count(),
             LowStockProducts = lowStock.Select(p => new ProductDto
             {

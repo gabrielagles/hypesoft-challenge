@@ -60,10 +60,10 @@ export function Dashboard() {
   }
 
   const hasLowStock = data?.lowStockProducts && data.lowStockProducts.length > 0
-  const totalStockUnits = data?.lowStockProducts?.reduce((acc: number, p: any) => acc + p.stockQuantity, 0) || 0
+  const totalStockUnits = data?.totalStockUnits || 0
   const zeroStock = data?.lowStockProducts?.filter((p: any) => p.stockQuantity === 0).length || 0
-  const avgPrice = data?.totalProducts ? (data.totalStockValue / data.totalProducts) : 0
-  const avgStock = data?.totalProducts ? Math.round(totalStockUnits / data.totalProducts) : 0
+  const avgPrice = data?.totalProducts && data.totalProducts > 0 ? (data.totalStockValue / data.totalProducts) : 0
+  const avgStock = data?.totalProducts && data.totalProducts > 0 && totalStockUnits > 0 ? Math.round(totalStockUnits / data.totalProducts) : 0
 
   const stats = [
     { label: 'Total de Produtos', value: data?.totalProducts || 0, icon: Package, gradient: 'from-blue-500 to-blue-600', bgLight: 'bg-blue-50' },

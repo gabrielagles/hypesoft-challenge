@@ -21,6 +21,7 @@ export interface Category {
 export interface DashboardData {
   totalProducts: number
   totalStockValue: number
+  totalStockUnits: number
   lowStockCount: number
   lowStockProducts: Product[]
   productsByCategory: CategoryProductCount[]

@@ -87,15 +87,31 @@ frontend/src/
 ### Dashboard
 - Total de produtos cadastrados
 - Valor total do estoque
-- Lista de produtos com estoque baixo (< 10 unidades)
+- Estoque total em unidades
+- Lista de produtos com estoque baixo
 - Gráfico de produtos por categoria (Pizza e Barras)
-- Métricas adicionais (estoque total, média de preço, etc)
+- Métricas adicionais (média de preço, média de estoque, produtos sem estoque)
 
 ### Autenticação
 - Integração com Keycloak (OAuth2/OpenID Connect)
 - Proteção de rotas no frontend
 - JWT Token validation no backend
 - Roles: Admin, Manager, User
+
+## Regras de Negócio
+
+### Controle de Estoque
+- **Estoque Baixo**: Produtos com quantidade **menor que 10 unidades** são considerados com estoque baixo
+- **Estoque Zerado**: Produtos com quantidade **igual a 0** são destacados na lista de alertas
+- O sistema calcula automaticamente o valor total do estoque (soma de `preço × quantidade` de todos os produtos)
+
+### Credenciais de Teste
+
+| Usuário | Senha    | Roles                |
+|---------|----------|---------------------|
+| admin   | admin123 | admin, manager, user |
+| manager | manager123 | manager, user     |
+| user    | user123 | user                |
 
 ## URLs de Acesso
 
@@ -150,9 +166,9 @@ npm run dev
 
 | Usuário | Senha   | Roles           |
 |---------|---------|-----------------|
-| admin   | admin   | admin, manager, user |
-| manager | manager | manager, user      |
-| user    | user    | user               |
+| admin   | admin123   | admin, manager, user |
+| manager | manager123 | manager, user      |
+| user    | user123    | user               |
 
 ## Endpoints da API
 

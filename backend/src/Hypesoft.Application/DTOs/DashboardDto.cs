@@ -4,6 +4,7 @@ public class DashboardDto
 {
     public int TotalProducts { get; set; }
     public decimal TotalStockValue { get; set; }
+    public int TotalStockUnits { get; set; }
     public int LowStockCount { get; set; }
     public IEnumerable<ProductDto> LowStockProducts { get; set; } = Enumerable.Empty<ProductDto>();
     public IEnumerable<CategoryProductCount> ProductsByCategory { get; set; } = Enumerable.Empty<CategoryProductCount>();

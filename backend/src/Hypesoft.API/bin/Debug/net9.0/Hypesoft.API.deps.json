@@ -487,7 +487,10 @@
         "dependencies": {
           "Hypesoft.Application": "1.0.0",
           "Hypesoft.Domain": "1.0.0",
-          "MongoDB.Driver": "2.24.0"
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "9.0.0",
+          "Microsoft.IdentityModel.Tokens": "8.0.1",
+          "MongoDB.Driver": "2.24.0",
+          "System.IdentityModel.Tokens.Jwt": "8.0.1"
         },
         "runtime": {
           "Hypesoft.Infrastructure.dll": {

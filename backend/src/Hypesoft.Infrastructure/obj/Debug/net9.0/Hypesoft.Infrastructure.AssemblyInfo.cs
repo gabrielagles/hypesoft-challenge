@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Hypesoft.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+676078b8d05448e044a6284fe86cbd6e34bae4aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f263c7274005581c5338dc4fdda1db957f143d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hypesoft.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hypesoft.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
