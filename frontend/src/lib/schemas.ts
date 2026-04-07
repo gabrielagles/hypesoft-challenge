@@ -1,21 +1,16 @@
 import { z } from 'zod'
 
 export const productSchema = z.object({
-  name: z.string()
-    .min(3, 'Nome deve ter pelo menos 3 caracteres')
-    .max(100, 'Nome deve ter no máximo 100 caracteres'),
-  description: z.string().max(500, 'Descrição deve ter no máximo 500 caracteres').optional(),
-  price: z.string().min(1, 'Preço é obrigatório'),
-  categoryId: z.string()
-    .min(1, 'Selecione uma categoria'),
-  stockQuantity: z.string().min(1, 'Estoque é obrigatório').or(z.literal('')),
+  name: z.string().min(1, 'Nome é obrigatório'),
+  description: z.string().optional().nullable(),
+  price: z.union([z.string(), z.number()]),
+  categoryId: z.string().min(1, 'Selecione uma categoria'),
+  stockQuantity: z.union([z.string(), z.number()]),
 })
 
 export const categorySchema = z.object({
-  name: z.string()
-    .min(3, 'Nome deve ter pelo menos 3 caracteres')
-    .max(50, 'Nome deve ter no máximo 50 caracteres'),
-  description: z.string().max(200, 'Descrição deve ter no máximo 200 caracteres').optional(),
+  name: z.string().min(1, 'Nome é obrigatório'),
+  description: z.string().optional().nullable(),
 })
 
 export const loginSchema = z.object({

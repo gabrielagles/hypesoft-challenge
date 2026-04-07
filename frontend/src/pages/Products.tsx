@@ -98,12 +98,15 @@ export function Products() {
   }
 
   const onSubmit = (data: ProductFormData) => {
+    const price = typeof data.price === 'string' ? parseFloat(data.price) : data.price
+    const stock = typeof data.stockQuantity === 'string' ? parseInt(data.stockQuantity) : data.stockQuantity
+    
     const payload = {
       name: data.name,
       description: data.description?.trim() || null,
-      price: parseFloat(data.price),
+      price: price,
       categoryId: data.categoryId,
-      stockQuantity: parseInt(data.stockQuantity),
+      stockQuantity: stock,
     }
 
     if (editingProduct) {
