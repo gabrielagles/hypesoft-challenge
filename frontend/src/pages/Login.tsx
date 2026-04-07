@@ -129,15 +129,15 @@ export function Login() {
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="p-2 bg-white/5 rounded-lg">
                 <p className="text-xs text-slate-500">Admin</p>
-                <p className="text-sm text-white font-medium">admin</p>
+                <p className="text-sm text-white font-medium">admin / admin123</p>
               </div>
               <div className="p-2 bg-white/5 rounded-lg">
                 <p className="text-xs text-slate-500">Manager</p>
-                <p className="text-sm text-white font-medium">manager</p>
+                <p className="text-sm text-white font-medium">manager / manager123</p>
               </div>
               <div className="p-2 bg-white/5 rounded-lg">
                 <p className="text-xs text-slate-500">User</p>
-                <p className="text-sm text-white font-medium">user</p>
+                <p className="text-sm text-white font-medium">user / user123</p>
               </div>
             </div>
           </div>
