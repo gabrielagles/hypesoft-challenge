@@ -123,17 +123,6 @@ export function Dashboard() {
           <p className="text-2xl font-bold text-slate-900">{avgStock}</p>
           <p className="text-xs text-slate-500 mt-1">por produto</p>
         </div>
-
-        <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-2 mb-3">
-            <TrendingUp className="text-purple-500" size={18} />
-            <h3 className="text-sm font-semibold text-slate-700">Preço Médio</h3>
-          </div>
-          <p className="text-2xl font-bold text-slate-900">
-            R$ {avgPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">por produto</p>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

@@ -8,7 +8,7 @@ export const productSchema = z.object({
   price: z.string().min(1, 'Preço é obrigatório'),
   categoryId: z.string()
     .min(1, 'Selecione uma categoria'),
-  stockQuantity: z.string().min(1, 'Estoque é obrigatório'),
+  stockQuantity: z.string().min(1, 'Estoque é obrigatório').or(z.literal('')),
 })
 
 export const categorySchema = z.object({
